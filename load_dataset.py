@@ -34,6 +34,10 @@ def analitic_corr(data):
             plt.text(i,s,f"{corr[s,i]:.2f}",color='black',fontsize=12,ha='center',va='center')
     plt.show()
 
+def preprocessing(data):
+    np.delete(data,[3,],axis=-1)
+    return data
+
 if __name__=='__main__':
     d=load()
     visualis(d[0])
