@@ -6,14 +6,17 @@ from matplotlib import pyplot as plt
 def load():
     data=load_iris()
     x=data['data']
+    x=preprocessing(x)
     y=data['target']
     ind=np.arange(x.shape[0])
+    np.random.shuffle(ind)
     x=x[ind]
     y=y[ind]
     x_train=x[:120]
     y_train=y[:120]
     x_val=x[120:]
     y_val=y[120:]
+
     return x_train,y_train,x_val,y_val
 
 def visualis(data):

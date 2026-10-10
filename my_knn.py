@@ -7,7 +7,7 @@ class KNN():
         self.y=None
 
     def fit(self,x,y):
-
+        
         if self.x is None:
             self.x=x
             self.y=y
@@ -16,11 +16,20 @@ class KNN():
             self.y=np.concatenate([self.y,y],axis=0)
 
     def predict(self,x):
-        lens=np.sqrt(np.sum(x**2,axis=-1,keepdims=True)+np.sum(self.x**2,axis=-1)-2*x@self.x.T)
+        lens=np.sqrt(np.sum(x**2,axis=-1,keepdims=True)+np.sum(self.x**2,axis=-1)-2*(x@self.x.T))
         inds=np.argsort(lens,axis=-1)
         top_k= self.y[inds[:,:self.k]]
         vals,counts=np.unique(top_k,return_counts=True,axis=-1)
         return vals[:,np.argmax(counts,axis=-1)]
+    
+    def visual_dots(self,x_v,y_v):
+        from matplotlib import pyplot as plt
+        fig=plt.figure()
+        ax=fig.add_subplot(projection='3d')
+        ax.scatter(*self.x[:,:3].T,cmap='viridis',c=self.y)
+        ax.scatter(*x_v[:,:3].T,cmap='cool',c=y_v,linewidths=1,edgecolors='black')
+        plt.show()
+    
     
         
 
