@@ -25,6 +25,16 @@ def visualis(data):
         plt.scatter(x,y)
     plt.show()
 
+def analitic_corr(data):
+    corr=np.corrcoef(data,rowvar=False)
+    cor=plt.imshow(corr,cmap='coolwarm',vmin=-1, vmax=1)
+    plt.colorbar(cor,shrink=0.8)
+    for s in range(corr.shape[0]):
+        for i in range(corr.shape[1]):
+            plt.text(i,s,f"{corr[s,i]:.2f}",color='black',fontsize=12,ha='center',va='center')
+    plt.show()
+
 if __name__=='__main__':
     d=load()
     visualis(d[0])
+    analitic_corr(d[0])
