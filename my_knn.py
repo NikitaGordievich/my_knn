@@ -19,8 +19,11 @@ class KNN():
         lens=np.sqrt(np.sum(x**2,axis=-1,keepdims=True)+np.sum(self.x**2,axis=-1)-2*(x@self.x.T))
         inds=np.argsort(lens,axis=-1)
         top_k= self.y[inds[:,:self.k]]
-        vals,counts=np.unique(top_k,return_counts=True,axis=-1)
-        return vals[:,np.argmax(counts,axis=-1)]
+        ans=[]
+        for row in top_k:
+            vals,counts=np.unique(row,return_counts=True)
+            ans.append(vals[np.argmax(counts,axis=-1)])
+        return np.array(ans)
     
     def visual_dots(self,x_v,y_v):
         from matplotlib import pyplot as plt
