@@ -6,15 +6,16 @@ from matplotlib import pyplot as plt
 def load():
     data=load_iris()
     x=data['data']
-    x=preprocessing(x)
     y=data['target']
     ind=np.arange(x.shape[0])
     np.random.shuffle(ind)
     x=x[ind]
     y=y[ind]
     x_train=x[:120]
+    x_train,mean,std=preprocessing(x_train)
     y_train=y[:120]
     x_val=x[120:]
+    x_val,mean,std=preprocessing(x_val,mean,std)
     y_val=y[120:]
 
     return x_train,y_train,x_val,y_val
@@ -37,9 +38,14 @@ def analitic_corr(data):
             plt.text(i,s,f"{corr[s,i]:.2f}",color='black',fontsize=12,ha='center',va='center')
     plt.show()
 
-def preprocessing(data):
+def preprocessing(data,mean=None,std=None):
     np.delete(data,[3,],axis=-1)
-    return data
+    if mean is None:
+        mean=np.mean(data,axis=0)
+    if std is None:
+        std=np.std(data,axis=0)
+    data=(data-mean)/std
+    return data,mean,std
 
 if __name__=='__main__':
     d=load()

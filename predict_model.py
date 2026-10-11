@@ -3,7 +3,7 @@ import numpy as np
 import my_knn
 
 print('start')
-model=my_knn.KNN(k=2)
+model=my_knn.KNN(k=1)
 print('knn cteate')
 x_train,y_train,x_v,y_v=load_dataset.load()
 print('data loaded')
@@ -14,4 +14,8 @@ accur=np.sum(y_v==y_pred)/y_v.shape[0]
 print(f'accuratly: {accur:.4f}')
 model.visual_dots(x_v,y_v)
 
-
+"""start
+knn cteate
+data loaded
+training model end
+accuratly: 1.0000"""
