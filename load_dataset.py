@@ -4,6 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def load():
+    np.random.seed(4)
     data=load_iris()
     x=data['data']
     y=data['target']
@@ -39,7 +40,7 @@ def analitic_corr(data):
     plt.show()
 
 def preprocessing(data,mean=None,std=None):
-    np.delete(data,[3,],axis=-1)
+    #data=np.delete(data,[2,],axis=-1)
     if mean is None:
         mean=np.mean(data,axis=0)
     if std is None:
